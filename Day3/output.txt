@@ -1,0 +1,28 @@
+./daythree_lexer.xrl:19:1: Warning: function tokens/1 is unused
+%   19| tokens(Tokens) -> Tokens.
+%     | ^
+
+daythree_parser.yrl:19:1: Warning: function ast/1 is unused
+%   19| ast(AST) -> AST.
+%     | ^
+
+main.erl:14:5: syntax error before: 'end'
+%   14|     end,    
+%     |     ^
+
+main.erl:3:2: function start/0 undefined
+%    3| -export([start/0, run/1, run2/1]).
+%     |  ^
+
+main.erl:86:14: Warning: variable 'Array' is unused
+%   86| in(_Element, Array = []) -> {false, []};
+%     |              ^
+
+main.erl:89:14: Warning: variable 'Times' is unused
+%   89|     {Coords, Times} -> 
+%     |              ^
+
+main.erl:94:5: Warning: variable 'Any' is unused
+%   94|     Any -> exit("Malformed array")
+%     |     ^
+

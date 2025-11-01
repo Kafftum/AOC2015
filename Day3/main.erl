@@ -126,21 +126,30 @@ solve_complete(ParsedInput) ->
           end,
 
         NewSanta =
-          {Santa, [Santa|Acc#santaAcc.santa]},
+          [Santa|Acc#santaAcc.santa],
 
         NewRobo =
-          {RoboSanta, [RoboSanta|Acc#santaAcc.robo]},
+          [RoboSanta|Acc#santaAcc.robo],
 
         #santaAcc{santa = NewSanta, robo = NewRobo}
     end,
 
   SecondFold = 
     fun(Elem, Acc) ->
-      io:format("~p~n", [Elem])
-      []
+      {Flag, Santa} = in(Elem, Acc#santaAcc.santa),
+
+      {Flag, Robo} = in(Elem, Acc#santaAcc.robo),
+
+      case Flag of
+        true -> update(Record, Acc);
+        false -> add(Elem, Acc)
+      end,
     end,
 
   FirstRes = lists:foldl(FirstFold, #santaAcc{}, ParsedInput),
-  SecondRes = lists:foldl(SecondFold, [], FirstRes)
+  SecondRes = lists:foldl(SecondFold, #santaAcc{}, FirstRes#santaAcc.santa),
+  ThirdRes = lists:foldl(SecondFold, #santaAcc{}, FirstRes#santaAcc.robo),
+
+  {SecondRes, ThirdRes}.
 
 

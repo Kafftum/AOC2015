@@ -119,10 +119,10 @@ solve_complete(ParsedInput) ->
 
         RoboSanta =
           case Elem of
-            up -> {X, Y - 1};
-            down -> {X, Y + 1};
-            left -> {X - 1, Y};
-            right -> {X + 1, Y}
+            up -> {X, Y + 1};
+            down -> {X, Y - 1};
+            left -> {X + 1, Y};
+            right -> {X - 1, Y}
           end,
 
         NewSanta =
@@ -136,9 +136,7 @@ solve_complete(ParsedInput) ->
 
   SecondFold = 
     fun(Elem, Acc) ->
-      {Flag, Santa} = in(Elem, Acc#santaAcc.santa),
-
-      {Flag, Robo} = in(Elem, Acc#santaAcc.robo),
+      {Flag, Record} = in(Elem, Acc),
 
       case Flag of
         true -> update(Record, Acc);
@@ -147,9 +145,9 @@ solve_complete(ParsedInput) ->
     end,
 
   FirstRes = lists:foldl(FirstFold, #santaAcc{}, ParsedInput),
-  SecondRes = lists:foldl(SecondFold, #santaAcc{}, FirstRes#santaAcc.santa),
-  ThirdRes = lists:foldl(SecondFold, #santaAcc{}, FirstRes#santaAcc.robo),
+  LRes = lists:foldl(SecondFold, [], FirstRes#santaAcc.santa),
+  RRes = lists:foldl(SecondFold, [], FirstRes#santaAcc.robo),
 
-  {SecondRes, ThirdRes}.
+  {LRes, RRes}.
 
 

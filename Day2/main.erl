@@ -3,6 +3,8 @@
 -export([start/0]).
 
 start() ->
+  Input = "input.txt",
+
   Solution = daytwo:run("input.txt"),
   io:format("Solution: ~p~n", [Solution]),
   
